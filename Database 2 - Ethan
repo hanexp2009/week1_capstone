@@ -1,0 +1,37 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.mlab as mlab
+import librosa
+import os
+
+
+def load_mp3(file_path):
+    
+    samples, sample_rate = librosa.load(file_path, sr=44100, mono =True)
+    
+    return samples, sample_rate
+
+def create_spectogram(samples, sample_rate):
+    
+    S, freqs, times = mlab.specgram(samples, NFFT=4096, Fs=sample_rate, window=mlab.window_hanning, noverlap=2048, mode='magnitude')
+    
+    return S, freqs, times
+
+for file in os.listdir("songs"):
+    if file.endswith(".mp3"):
+        file_path = os.path.join("songs", file)
+
+    samples, sample_rate = load_mp3(file_path)
+
+    S, freqs, times = create_spectogram(samples, sample_rate)
+    print("Samples:", samples.shape)
+    print("Sampling Rate:", sample_rate)
+    print("Spectrogram Shape:", S.shape)
+
+    fig, ax = plt.subplots()
+
+    ax.imshow(S, aspect='auto', origin='lower')
+    ax.set_xlabel('Time (s)')
+    ax.set_ylabel('Frequency (Hz)')
+    plt.title('Spectrogram')
+    plt.show()
