@@ -1,6 +1,7 @@
 """Load and add items to the database."""
 
 import pickle
+from typing import List,Tuple
 
 DB_PATH = "db.pkl"
 SONGS_PATH = "songs.pkl"
@@ -32,7 +33,7 @@ def exportSongs(d: dict):
         pickle.dump(d, opened_file)
 
 
-def add(fanout: list[tuple[tuple[int, int, int], int]], song_ID: str, song_name: str):
+def add(fanout: List[Tuple[Tuple[int, int, int], int]], song_ID: str, song_name: str):
     d = load()
 
     for pair in fanout:
