@@ -1,3 +1,8 @@
+import sys
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+
 from song_input import mp3_input
 
 samples, sample_rate = mp3_input("data/raw/test_song.mp3")
