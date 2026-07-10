@@ -1,16 +1,14 @@
-import matplotlib.pyplot as plt
+import numpy as np
 import matplotlib.mlab as mlab
-from song_input import mic_input
 
-def make_spectrogram(samples, sampling_rate=44100):
-    S, freqs, times = mlab.specgram(
+def make_spectrogram(samples, sample_rate, nfft=4096, noverlap=2048):
+    spec, freqs, times = mlab.specgram(
         samples,
-        NFFT=4096,
-        Fs=sampling_rate,
+        NFFT=nfft,
+        Fs=sample_rate,
         window=mlab.window_hanning,
-        noverlap=4096 // 2,
-        mode='magnitude',
+        noverlap=noverlap,
     )
-    return S, freqs, times
-
-
+    spec = np.clip(spec, 1e-20, None)
+    log_spec = np.log(spec)
+    return log_spec, freqs, times
