@@ -3,6 +3,7 @@ Load and add items to the database, db.pkl
 """
 
 import pickle
+from typing import List,Tuple
 
 def load() -> dict:
     try:
@@ -28,7 +29,7 @@ def exportSongs(d: dict):
     with open("songs.pkl",mode="wb") as opened_file:
         pickle.dump(d,opened_file)
 
-def add(fanout: list[tuple[tuple[float,float,float],float]], song_ID: str, song_name: str):
+def add(fanout: List[Tuple[Tuple[float,float,float],float]], song_ID: str, song_name: str):
     d = load()
     for pair in fanout:
         if pair[0] not in d:
@@ -61,7 +62,7 @@ def reset():
     export(a)
     exportSongs(a)
 
-def query(fingerprints: list[tuple[tuple[float,float,float],float]]):
+def query(fingerprints: List[Tuple[Tuple[float,float,float],float]]):
     counts = {}
     database = load()
     for fp in fingerprints:
