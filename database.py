@@ -59,6 +59,7 @@ def viewSongs():
 def reset():
     a = {}
     export(a)
+    exportSongs(a)
 
 def query(fingerprints: list[tuple[tuple[float,float,float],float]]):
     counts = {}
