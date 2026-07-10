@@ -1,6 +1,7 @@
 """Load and add items to the database."""
 
 import pickle
+from typing import List,Tuple
 
 DB_PATH = "db.pkl"
 SONGS_PATH = "songs.pkl"
